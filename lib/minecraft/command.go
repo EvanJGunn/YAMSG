@@ -13,7 +13,7 @@ const (
 	RenderForce  = Render("force")  // 512 blocks
 	RenderNormal = Render("normal") // less than 512 blocks, I forget :(
 
-	particleDustFormat = "/particle minecraft:dust %v %v %v %f %s %f %f %f %f %d %s"
+	particleDustFormat = "particle minecraft:dust %v %v %v %f %s %f %f %f %f %d %s"
 )
 
 type ParticleColoredCommand interface {
