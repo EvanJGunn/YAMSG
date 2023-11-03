@@ -2,6 +2,7 @@ package minecraft
 
 import (
 	"fmt"
+	"image/color"
 
 	"github.com/EvanJGunn/YAMSG/lib/emath"
 )
@@ -12,11 +13,11 @@ const (
 	RenderForce  = Render("force")  // 512 blocks
 	RenderNormal = Render("normal") // less than 512 blocks, I forget :(
 
-	particleDustFormat = "/particle minecraft:dust %f %f %f %f %s %f %f %f %f %d %s"
+	particleDustFormat = "/particle minecraft:dust %v %v %v %f %s %f %f %f %f %d %s"
 )
 
 type ParticleColoredCommand interface {
-	Generate(x, y, z float32, rgb emath.Vector3F) string
+	Generate(x, y, z float32, rgb color.Color) string
 }
 
 type particleDustCommand struct {
@@ -39,9 +40,11 @@ func NewParticleDustCommand(size float32, relativePos bool, boxDir emath.Vector3
 	}
 }
 
-func (pc particleDustCommand) Generate(x, y, z float32, rgb emath.Vector3F) string {
+func (pc particleDustCommand) Generate(x, y, z float32, rgb color.Color) string {
+	r, g, b, _ := rgb.RGBA()
+
 	if pc.relativePos {
-		return fmt.Sprintf(particleDustFormat, rgb.X, rgb.Y, rgb.Z, pc.size, fmt.Sprintf("~%f ~%f ~%f", x, y, z), pc.boxDir.X, pc.boxDir.Y, pc.boxDir.Z, pc.speed, pc.count, string(pc.render))
+		return fmt.Sprintf(particleDustFormat, r, g, b, pc.size, fmt.Sprintf("~%f ~%f ~%f", x, y, z), pc.boxDir.X, pc.boxDir.Y, pc.boxDir.Z, pc.speed, pc.count, string(pc.render))
 	}
-	return fmt.Sprintf(particleDustFormat, rgb.X, rgb.Y, rgb.Z, pc.size, fmt.Sprintf("%f %f %f", x, y, z), pc.boxDir.X, pc.boxDir.Y, pc.boxDir.Z, pc.speed, pc.count, string(pc.render))
+	return fmt.Sprintf(particleDustFormat, r, g, b, pc.size, fmt.Sprintf("%f %f %f", x, y, z), pc.boxDir.X, pc.boxDir.Y, pc.boxDir.Z, pc.speed, pc.count, string(pc.render))
 }

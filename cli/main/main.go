@@ -42,7 +42,7 @@ func main() {
 		}
 		pdc := minecraft.NewParticleDustCommand(0.1, true, emath.Vector3F{X: 0.0001, Y: 0.0001, Z: 0.0001}, 0, 1, minecraft.RenderForce)
 		commands := minecraft.ImageToCommands(pdc, emath.Vector3F{X: 0, Y: 1, Z: 0}, img)
-		err = exportCommandsToFile(commands, "./pngframe.mcfunction")
+		err = exportCommandsToFile(commands, "./bin/pngframe.mcfunction")
 		if err != nil {
 			log.Fatalf("error exporting commands to file: %v", err)
 		}
@@ -54,7 +54,7 @@ func main() {
 		}
 		pdc := minecraft.NewParticleDustCommand(0.1, true, emath.Vector3F{X: 0.0001, Y: 0.0001, Z: 0.0001}, 0, 1, minecraft.RenderForce)
 		commands := minecraft.ImageToCommands(pdc, emath.Vector3F{X: 0, Y: 1, Z: 0}, img)
-		err = exportCommandsToFile(commands, "./pngframe.mcfunction")
+		err = exportCommandsToFile(commands, "./bin/jpgframe.mcfunction")
 		if err != nil {
 			log.Fatalf("error exporting commands to file: %v", err)
 		}

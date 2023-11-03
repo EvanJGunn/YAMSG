@@ -20,13 +20,15 @@ func ImageToCommands(pc ParticleColoredCommand, loc emath.Vector3F, img image.Im
 
 	for i := 0; i < len(samples); i++ {
 		pos := samples[i]
-		rgb := img.Bounds().RGBA64At(pos.X, pos.Y)
-		if rgb.A == 0 {
+		rgb := img.At(pos.X, pos.Y)
+
+		_, _, _, alpha := rgb.RGBA()
+		if alpha == 0 {
 			// skip 0 alpha samples
 			continue
 		}
 
-		cmd := pc.Generate(float32(pos.X), float32(pos.Y), 0, emath.Vector3F{X: float64(rgb.R), Y: float64(rgb.G), Z: float64(rgb.B)})
+		cmd := pc.Generate(float32(pos.X), float32(pos.Y), 0, rgb)
 		commands = append(commands, cmd)
 	}
 	return commands
