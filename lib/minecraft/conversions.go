@@ -8,7 +8,7 @@ import (
 )
 
 // assuming this is correct, atleast from what I can find online it is
-const maxPixels = 65536
+const maxPixels = 10000 //65536
 
 // TODO add scaling, rotation, etc
 func ImageToCommands(pc ParticleColoredCommand, loc emath.Vector3F, img image.Image) (commands []string) {
@@ -28,7 +28,8 @@ func ImageToCommands(pc ParticleColoredCommand, loc emath.Vector3F, img image.Im
 			continue
 		}
 
-		cmd := pc.Generate(float32(pos.X), float32(pos.Y), 0, rgb)
+		// Y = y(max)-pos.y because up is down in png land, and up is up in minecraft land
+		cmd := pc.Generate(float32(pos.X), float32(y-pos.Y), 0, rgb)
 		commands = append(commands, cmd)
 	}
 	return commands
