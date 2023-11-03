@@ -40,9 +40,9 @@ func main() {
 		if err != nil {
 			log.Fatalf("error decoding png file: %v", err)
 		}
-		pdc := minecraft.NewParticleDustCommand(3, true, emath.Vector3F{X: 0.0001, Y: 0.0001, Z: 0.0001}, 0, 1, minecraft.RenderForce)
+		pdc := minecraft.NewParticleDustCommand(10, true, emath.Vector3F{X: 0.0001, Y: 0.0001, Z: 0.0001}, 0, 1, minecraft.RenderForce)
 		commands := minecraft.ImageToCommands(pdc, emath.Vector3F{X: 0, Y: 1, Z: 0}, img)
-		err = exportCommandsToFile(commands, "./bin/pngframe.mcfunction")
+		err = exportCommandsToFile(commands, "./bin/png.mcfunction")
 		if err != nil {
 			log.Fatalf("error exporting commands to file: %v", err)
 		}
@@ -52,9 +52,9 @@ func main() {
 		if err != nil {
 			log.Fatalf("error decoding png file: %v", err)
 		}
-		pdc := minecraft.NewParticleDustCommand(3, true, emath.Vector3F{X: 0.0001, Y: 0.0001, Z: 0.0001}, 0, 1, minecraft.RenderForce)
+		pdc := minecraft.NewParticleDustCommand(10, true, emath.Vector3F{X: 0.0001, Y: 0.0001, Z: 0.0001}, 0, 1, minecraft.RenderForce)
 		commands := minecraft.ImageToCommands(pdc, emath.Vector3F{X: 0, Y: 1, Z: 0}, img)
-		err = exportCommandsToFile(commands, "./bin/jpgframe.mcfunction")
+		err = exportCommandsToFile(commands, "./bin/jpg.mcfunction")
 		if err != nil {
 			log.Fatalf("error exporting commands to file: %v", err)
 		}

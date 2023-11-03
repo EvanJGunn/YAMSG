@@ -8,7 +8,7 @@ import (
 )
 
 // assuming this is correct, atleast from what I can find online it is
-const maxPixels = 10000 //65536
+const maxPixels = 65536 //65536
 
 // TODO add scaling, rotation, etc
 func ImageToCommands(pc ParticleColoredCommand, loc emath.Vector3F, img image.Image) (commands []string) {
