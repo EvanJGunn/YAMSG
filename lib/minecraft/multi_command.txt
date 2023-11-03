@@ -1,0 +1,41 @@
+So this wont work at all unless I can get more than one command into a command block...
+Preferably I can at least render a frame per command block of an animation for my end goal and link those up...
+
+... seems like this is accomplished with falling sand... or now falling_block?
+
+ok looked through that a lot ... its a bunch of garbo >:(
+Im just going to use minecraft functions then... Im betting thats what the youtube short was using as well
+
+....
+https://minecraft.fandom.com/wiki/Function_(Java_Edition)
+ok so functions
+text file with extension .mcfunction
+go into datapack.data.namespace.functions.function.mcfunction
+one command per line, no /
+
+limited to 32500 chars per command
+default limit 65536 commands per function
+can potentially increase that with /gamerule maxCommandChainLength
+
+might need to checkout function-permission-level in server.properties
+
+can use /function command on a command block to run the function once its in the server's resources
+
+all commands are executed within the same tick...
+.....
+
+Ok after reading that, I need to be able to delay somehow and render all of an animation frames within the same tick,
+or I need to create multiple frames of an animation in multiple function files, and then have one animation function that schedules the rest of the functions
+
+also my max resolution per frame is something like 192*144, 256*144, 320×180 which is near our command chain max
+theoretically we can extend this with the gamerule, the question is should we, and will these low resolutions even work well in the first place?
+
+if I wanted for example, 480*480, I would need to increase the limit to 230400 commands per chain
+
+maybe I could run some sort of sampling on high resolution images? I would need something like
+- A real size target in minecraft (i.e. we cant have a 4k image extend 4k blocks, because MC has that 512 block limit anyways on sight)
+- sample the image to get it within 65k total commands
+
+
+to be honest I think moving onto 3d models will be much easier xD because I can make them with low res myself, and people will care less about detail
+and more about the wow factor of the hologram

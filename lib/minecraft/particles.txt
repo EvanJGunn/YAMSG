@@ -1,0 +1,43 @@
+---------
+Ok so after a little research it looks like dust is the minecraft particle that you can change the color of... and properly set and everything
++ after a little research this is exactly the kind of particle the guy was using from the video
+
+/particle minecraft:dust 1.0 0.5 0.5 1.0 ~ ~1 ~ 0 0 0 0 1 force
+
+1.0 0.5 0.5 -> color rgb
+1.0 -> size
+~ ~1 ~ -> position
+0 0 0 -> direction vector ... or box within which it can spawn? maybe should be 0.0001 0.0001 0.0001
+0     -> speed
+1     -> count
+force -> max 512 block view distance
+
+
+-----------
+old stuff
+
+/particle minecraft:electric_spark ~ ~1 ~ 0.001 0.001 0.001 0 1 force
+
+~ ~1 ~ -> position
+0.001 0.001 0.001 -> box that the particle can spawn within, 0.001 makes it essentially always the same spot
+0 -> speed, seems like this affects duration, as well as if it moves, 0 appears to make it stay still
+1 -> count, affects how many spawn
+force -> makes the particles appear at the max distance of 512 blocks
+
+
+....
+
+But for other particle effects the it turns into color and saturation... fubar
+
+
+
+
+.... list
+
+ambient_entity_effect - useless for my case, will move no matter what speed
+angry_villager        - useless
+ash                   - useless
+block                 - fubar
+block_marker          - fubar
+bubble                - cant change color (I think), size varies
+crit                  - useless for what I want, maybe useful elsewhere
