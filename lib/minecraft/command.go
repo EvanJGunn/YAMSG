@@ -14,6 +14,8 @@ const (
 	RenderNormal = Render("normal") // less than 512 blocks, I forget :(
 
 	particleDustFormat = "particle minecraft:dust %v %v %v %f %s %f %f %f %f %d %s"
+
+	maxColorVal = 65535.0
 )
 
 type ParticleColoredCommand interface {
@@ -43,8 +45,13 @@ func NewParticleDustCommand(size float32, relativePos bool, boxDir emath.Vector3
 func (pc particleDustCommand) Generate(x, y, z float32, rgb color.Color) string {
 	r, g, b, _ := rgb.RGBA()
 
+	// the mc dust command deals in percentages for colors
+	rPercentage := float32(float32(r) / maxColorVal)
+	gPercentage := float32(float32(g) / maxColorVal)
+	bPercentage := float32(float32(b) / maxColorVal)
+
 	if pc.relativePos {
-		return fmt.Sprintf(particleDustFormat, r, g, b, pc.size, fmt.Sprintf("~%f ~%f ~%f", x, y, z), pc.boxDir.X, pc.boxDir.Y, pc.boxDir.Z, pc.speed, pc.count, string(pc.render))
+		return fmt.Sprintf(particleDustFormat, rPercentage, gPercentage, bPercentage, pc.size, fmt.Sprintf("~%f ~%f ~%f", x, y, z), pc.boxDir.X, pc.boxDir.Y, pc.boxDir.Z, pc.speed, pc.count, string(pc.render))
 	}
-	return fmt.Sprintf(particleDustFormat, r, g, b, pc.size, fmt.Sprintf("%f %f %f", x, y, z), pc.boxDir.X, pc.boxDir.Y, pc.boxDir.Z, pc.speed, pc.count, string(pc.render))
+	return fmt.Sprintf(particleDustFormat, rPercentage, gPercentage, bPercentage, pc.size, fmt.Sprintf("%f %f %f", x, y, z), pc.boxDir.X, pc.boxDir.Y, pc.boxDir.Z, pc.speed, pc.count, string(pc.render))
 }
