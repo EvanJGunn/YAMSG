@@ -2,7 +2,6 @@ package minecraft
 
 import (
 	"fmt"
-	"image/color"
 
 	"github.com/EvanJGunn/YAMSG/lib/emath"
 )
@@ -19,7 +18,7 @@ const (
 )
 
 type ParticleColoredCommand interface {
-	Generate(x, y, z float32, rgb color.Color) string
+	Generate(x, y, z float32, rgb emath.Vector3F) string
 }
 
 type particleDustCommand struct {
@@ -42,16 +41,9 @@ func NewParticleDustCommand(size float32, relativePos bool, boxDir emath.Vector3
 	}
 }
 
-func (pc particleDustCommand) Generate(x, y, z float32, rgb color.Color) string {
-	r, g, b, _ := rgb.RGBA()
-
-	// the mc dust command deals in percentages for colors
-	rPercentage := float32(float32(r) / maxColorVal)
-	gPercentage := float32(float32(g) / maxColorVal)
-	bPercentage := float32(float32(b) / maxColorVal)
-
+func (pc particleDustCommand) Generate(x, y, z float32, rgb emath.Vector3F) string {
 	if pc.relativePos {
-		return fmt.Sprintf(particleDustFormat, rPercentage, gPercentage, bPercentage, pc.size, fmt.Sprintf("~%f ~%f ~%f", x, y, z), pc.boxDir.X, pc.boxDir.Y, pc.boxDir.Z, pc.speed, pc.count, string(pc.render))
+		return fmt.Sprintf(particleDustFormat, rgb.X, rgb.Y, rgb.Z, pc.size, fmt.Sprintf("~%f ~%f ~%f", x, y, z), pc.boxDir.X, pc.boxDir.Y, pc.boxDir.Z, pc.speed, pc.count, string(pc.render))
 	}
-	return fmt.Sprintf(particleDustFormat, rPercentage, gPercentage, bPercentage, pc.size, fmt.Sprintf("%f %f %f", x, y, z), pc.boxDir.X, pc.boxDir.Y, pc.boxDir.Z, pc.speed, pc.count, string(pc.render))
+	return fmt.Sprintf(particleDustFormat, rgb.X, rgb.Y, rgb.Z, pc.size, fmt.Sprintf("%f %f %f", x, y, z), pc.boxDir.X, pc.boxDir.Y, pc.boxDir.Z, pc.speed, pc.count, string(pc.render))
 }
